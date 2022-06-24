@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+<div id="wraper-block"></div>
+
+</body>
+</html>
+
+<style>
+#wraper-block{
+    height: 100px;
+    width: 100px;
+    background-color: lightblue;
+    margin-top: 50px;
+}
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        let height = 50;
+        let width  = 0;
+
+        let pageHeight = 0;
+        let pageWidth  = 0;
+        let dom = document.getElementById('wraper-block');
+        let direction = 'top-left';
+        setInterval(function (){
+            pageHeight = window.innerHeight - 100;
+            pageWidth  = window.innerWidth - 100;
+            if (height < 1 && width < 1){ direction = 'top-left' }
+            else if (height > pageHeight && width < pageWidth){ direction = 'bottom-left' }
+            else if (height < pageHeight && width > pageWidth){ direction = 'bottom-right' }
+            else if (height < 1 && width < pageWidth){ direction = 'top-right' }
+            else if (height < pageHeight && width < 1){ direction = 'top-left' }
+
+            if ( direction == 'top-left'){ positionAdjustTopLeft() }
+            if ( direction == 'bottom-left'){ positionAdjustBottomLeft() }
+            if ( direction == 'bottom-right'){ positionAdjustBottomRight() }
+            if ( direction == 'top-right'){ positionAdjustTopRight() }
+
+            console.log(height, pageHeight, width, pageWidth, direction)
+        }, 100);
+
+        function positionAdjustTopLeft() {
+            height += 10;
+            width += 10;
+            dom.style.margin = height+'px 0px 0px '+width+'px';
+        }
+
+        function positionAdjustTopRight() {
+            height += 10;
+            width -= 10;
+            dom.style.margin = height+'px 0px 0px '+width+'px';
+        }
+
+        function positionAdjustBottomLeft() {
+            height -= 10;
+            width += 10;
+            dom.style.margin = height+'px 0px 0px '+width+'px';
+        }
+
+        function positionAdjustBottomRight() {
+            height -= 10;
+            width -= 10;
+            dom.style.margin = height+'px 0px 0px '+width+'px';
+        }
+    });
+</script>
